@@ -19,17 +19,7 @@ import { AppService } from './app.service';
       disableGlobalAuthGuard: true, // Disable default global auth guard
     }), // Configure better-auth with the auth instance
   ],
-  providers: [
-    AppService,
-    // {
-    //   provide: APP_GUARD, // Apply PermissionsGuard globally
-    //   useClass: PermissionsGuard, // Custom permissions guard
-    // },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: CraftsmanExpirationGuard,
-    // },
-  ],
+  providers: [AppService],
   controllers: [AppController], // Import the AppController
 })
 export class AppModule {}
