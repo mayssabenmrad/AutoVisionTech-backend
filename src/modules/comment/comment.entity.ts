@@ -1,18 +1,17 @@
 import {
   Entity,
-  PrimaryColumn,
   CreateDateColumn,
   Column,
   ManyToOne,
   JoinColumn,
   Check,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { User } from 'src/modules/user/user.entity';
 import { CarEntity } from '../car/car.entity';
 @Entity('comments')
 export class CommentEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ nullable: false })
@@ -25,17 +24,13 @@ export class CommentEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => User, {
-    eager: true,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'userId' })
-  user: User;
-
   @ManyToOne(() => CarEntity, {
-    eager: true,
+    eager: false,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'carId' })
-  product: CarEntity;
+  car: CarEntity;
+
+  @Column({ nullable: false })
+  carId: string;
 }
