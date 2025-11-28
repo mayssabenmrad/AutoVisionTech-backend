@@ -30,6 +30,16 @@ export const auth = betterAuth({
         },
         input: false, // Hide from user input forms
       },
+      // Additional custom field 'isActive' to the user table
+      isActive: {
+        type: 'boolean',
+        required: false,
+        defaultValue: false, // Par défaut, l'utilisateur est actif
+        validator: {
+          input: z.boolean().optional(),
+        },
+        input: false, // Hide from user input forms (géré par les admins)
+      },
     },
   },
   // Session configuration

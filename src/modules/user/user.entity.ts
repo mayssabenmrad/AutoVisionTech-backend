@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'user', synchronize: false }) // Name exact of the Better Auth table, synchronize: false to avoid conflicts
+@Entity({ name: 'user', synchronize: false })
 export class User {
   @PrimaryColumn('text')
   id: string;
@@ -26,8 +26,20 @@ export class User {
   @Column({ nullable: true })
   location: string;
 
-  @Column({ nullable: true })
+  @Column({
+    nullable: true,
+    type: 'enum',
+    enum: ['agent', 'admin'],
+    default: 'agent',
+  })
   role: 'agent' | 'admin';
+
+  @Column({
+    nullable: true,
+    type: 'boolean',
+    default: true,
+  })
+  isActive: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
