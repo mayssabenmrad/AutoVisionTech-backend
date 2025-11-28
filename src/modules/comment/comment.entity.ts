@@ -4,7 +4,6 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-  Check,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -17,9 +16,8 @@ export class CommentEntity {
   @Column({ nullable: false })
   content: string;
 
-  @Check(`"mark" BETWEEN 1 AND 5`)
   @Column({ nullable: false })
-  mark: number;
+  name: string;
 
   @CreateDateColumn()
   createdAt: Date;
