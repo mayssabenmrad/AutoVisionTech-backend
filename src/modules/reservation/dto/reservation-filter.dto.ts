@@ -2,17 +2,17 @@ import {
   IsIn,
   IsOptional,
   IsString,
-  IsEmail,
+  IsUUID,
   IsDateString,
 } from 'class-validator';
 
-export class UpdateReservationDto {
+export class ReservationFilterDto {
   @IsOptional()
   @IsString()
   clientName?: string;
 
   @IsOptional()
-  @IsEmail()
+  @IsString()
   clientEmail?: string;
 
   @IsOptional()
@@ -21,13 +21,21 @@ export class UpdateReservationDto {
 
   @IsOptional()
   @IsDateString()
-  visitDate?: string;
+  minVisitDate?: string;
 
   @IsOptional()
-  @IsString()
-  visitTime?: string;
+  @IsDateString()
+  maxVisitDate?: string;
+
+  @IsOptional()
+  @IsIn(['asc', 'desc'])
+  sortByVisitDate?: 'asc' | 'desc';
 
   @IsOptional()
   @IsIn(['pending', 'confirmed', 'cancelled', 'completed'])
   status?: string;
+
+  @IsOptional()
+  @IsUUID()
+  carId?: string;
 }
