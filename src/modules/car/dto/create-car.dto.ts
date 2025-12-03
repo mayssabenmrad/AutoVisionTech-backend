@@ -8,7 +8,6 @@ import {
   IsPositive,
   IsString,
   IsUrl,
-  IsUUID,
   Min,
 } from 'class-validator';
 
@@ -52,8 +51,4 @@ export class CreateCarDto {
   @IsArray()
   @IsUrl({}, { each: true })
   images?: string[];
-
-  @IsNotEmpty()
-  @IsUUID()
-  userId: string;
 }
