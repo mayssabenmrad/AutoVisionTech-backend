@@ -19,6 +19,21 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserFilterDto } from './dto/user-filter.dto';
 import { UploadService } from '../upload/upload.service';
+
+/**
+ * Service for managing users.
+ * Provides methods for retrieving, updating, deleting users,
+ * changing passwords, and creating admin users.
+ * Uses TypeORM for database interactions and Better Auth for authentication.
+ * Handles profile image uploads via UploadService.
+ * Includes pagination and filtering for user retrieval.
+ * Throws appropriate exceptions for error handling.
+ * @see User entity
+ * @see UpdateProfileDto
+ * @see ChangePasswordDto
+ * @see CreateUserDto
+ * @see UserFilterDto
+ */
 @Injectable()
 export class UserService {
   // Injection du repository User
@@ -203,21 +218,20 @@ export class UserService {
     return this.updateProfileImage(userId, '');
   }
 
-  //activate a user profile
-  async activateUser(userId: string): Promise<User> {
+  // Activate or deactivate a user
+  async updateActivateUser(userId: string, isActive: boolean): Promise<User> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) throw new NotFoundException('User not found');
 
-    user.isActive = true;
+    user.isActive = isActive;
     return this.userRepository.save(user);
   }
 
-  //deactivate a user profile
-  async deactivateUser(userId: string): Promise<User> {
+  async updateUserRole(userId: string, role: 'admin' | 'agent'): Promise<User> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) throw new NotFoundException('User not found');
 
-    user.isActive = false;
+    user.role = role;
     return this.userRepository.save(user);
   }
 }

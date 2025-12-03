@@ -21,6 +21,7 @@ export enum Permission {
   ADMIN_USER_CREATE = 'ADMIN_USER_CREATE',
   ADMIN_USER_ACTIVATE = 'ADMIN_USER_ACTIVATE',
   ADMIN_USER_DEACTIVATE = 'ADMIN_USER_DEACTIVATE',
+  UPDATE_USER_ROLE = 'UPDATE_USER_ROLE',
 }
 
 /**
@@ -57,5 +58,6 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     Permission.ADMIN_USER_CREATE,
     Permission.ADMIN_USER_ACTIVATE,
     Permission.ADMIN_USER_DEACTIVATE,
+    Permission.UPDATE_USER_ROLE,
   ],
 };

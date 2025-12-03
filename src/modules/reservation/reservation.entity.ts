@@ -32,7 +32,7 @@ export class ReservationEntity {
   @Column({
     nullable: false,
     type: 'enum',
-    enum: ['pending', 'confirmed', 'cancelled', 'completed'],
+    enum: ['pending', 'confirmed', 'cancelled'],
     default: 'pending',
   })
   status: string;

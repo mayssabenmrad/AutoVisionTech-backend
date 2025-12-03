@@ -29,6 +29,7 @@ import { Permission } from 'src/auth/types/permissions.types';
 import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
 
 @Controller('cars')
+@UseGuards(PermissionsGuard)
 export class CarController {
   constructor(
     private readonly carService: CarService,
@@ -86,12 +87,11 @@ export class CarController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateCarDto: UpdateCarDto,
     @UploadedFiles() files: Express.Multer.File[],
-    @CurrentUser() user: AuthUser,
   ) {
     if (files && files.length > 0) {
       this.uploadService.validateFiles(files);
     }
-    return await this.carService.updateCar(id, updateCarDto, user.id, files);
+    return await this.carService.updateCar(id, updateCarDto, files);
   }
 
   // PATCH /cars/:id/images : update car images
@@ -122,7 +122,6 @@ export class CarController {
 
     return await this.carService.updateCarImages(
       id,
-      user.id,
       newImageUrls,
       !shouldReplaceAll, // keepExisting in the car service
     );
@@ -132,10 +131,7 @@ export class CarController {
   @Delete(':id')
   @UseGuards(PermissionsGuard)
   @RequirePermissions(Permission.DELETE_CAR)
-  async delete(
-    @Param('id', ParseUUIDPipe) id: string,
-    @CurrentUser() user: AuthUser,
-  ) {
-    return await this.carService.deleteCar(id, user.id);
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.carService.deleteCar(id);
   }
 }

@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -13,6 +12,18 @@ import { Repository, SelectQueryBuilder } from 'typeorm';
 import { CarFilterDto } from './dto/car-filter.dto';
 import { User } from '../user/user.entity';
 
+/**
+ * Service for managing cars.
+ * Provides methods for retrieving, creating, updating, and deleting cars.
+ * Uses TypeORM for database interactions.
+ * Handles image uploads via UploadService.
+ * Includes filtering and pagination for car retrieval.
+ * Throws appropriate exceptions for error handling.
+ * @see CarEntity
+ * @see CreateCarDto
+ * @see UpdateCarDto
+ * @see CarFilterDto
+ */
 @Injectable()
 export class CarService {
   constructor(
@@ -197,17 +208,12 @@ export class CarService {
   async updateCar(
     id: string,
     dto: UpdateCarDto,
-    userId: string,
     files?: Express.Multer.File[],
   ): Promise<CarEntity | null> {
     const car = await this.carRepository.findOne({ where: { id } });
 
     if (!car) {
       throw new BadRequestException('Car not found');
-    }
-
-    if (car.userId !== userId) {
-      throw new ForbiddenException('Not allowed');
     }
 
     const newUrls =
@@ -251,17 +257,11 @@ export class CarService {
     });
   }
 
-  async deleteCar(id: string, userId: string) {
+  async deleteCar(id: string) {
     const car = await this.carRepository.findOne({ where: { id } });
 
     if (!car) {
       throw new BadRequestException('Car not found');
-    }
-
-    if (car.userId !== userId) {
-      throw new ForbiddenException(
-        'You do not have permission to delete this car',
-      );
     }
 
     // Delete images before deleting car
@@ -276,7 +276,6 @@ export class CarService {
 
   async updateCarImages(
     id: string,
-    userId: string,
     newImageUrls: string[],
     keepExisting: boolean = false,
   ): Promise<CarEntity> {
@@ -284,12 +283,6 @@ export class CarService {
 
     if (!car) {
       throw new BadRequestException('Car not found');
-    }
-
-    if (car.userId !== userId) {
-      throw new ForbiddenException(
-        'You do not have permission to update this car',
-      );
     }
 
     const oldImages = car.images || [];
