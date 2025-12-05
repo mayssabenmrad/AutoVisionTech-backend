@@ -21,6 +21,7 @@ export enum Permission {
   ADMIN_USER_CREATE = 'ADMIN_USER_CREATE',
   ADMIN_USER_ACTIVATE = 'ADMIN_USER_ACTIVATE',
   ADMIN_USER_DEACTIVATE = 'ADMIN_USER_DEACTIVATE',
+  UPDATE_USER_ROLE = 'UPDATE_USER_ROLE',
 }
 
 /**
@@ -44,10 +45,6 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
   admin: [
     // Admins have all permissions
     Permission.MANAGE_USERS,
-    Permission.MANAGE_CARS,
-    Permission.CREATE_CAR,
-    Permission.UPDATE_CAR,
-    Permission.DELETE_CAR,
     Permission.MANAGE_COMMENTS,
     Permission.DELETE_ANY_COMMENT,
     Permission.MANAGE_RESERVATIONS,
@@ -57,5 +54,6 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     Permission.ADMIN_USER_CREATE,
     Permission.ADMIN_USER_ACTIVATE,
     Permission.ADMIN_USER_DEACTIVATE,
+    Permission.UPDATE_USER_ROLE,
   ],
 };

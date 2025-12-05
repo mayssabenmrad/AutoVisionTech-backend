@@ -27,7 +27,7 @@ export const multerConfig = {
       if (file.fieldname === 'profileImage' || file.fieldname === 'image') {
         folder += 'profiles';
       } else if (file.fieldname === 'images') {
-        folder += 'products';
+        folder += 'cars';
       } else {
         folder += 'others';
       }

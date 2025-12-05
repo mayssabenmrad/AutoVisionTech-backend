@@ -9,8 +9,4 @@ export class UpdateProfileDto {
   @IsOptional()
   @IsEmail({}, { message: 'Invalid email format' })
   email?: string;
-
-  @IsOptional()
-  @IsString()
-  location?: string;
 }

@@ -27,8 +27,18 @@ export class UploadService {
    */
   getFolderFromUrl(url: string): string {
     if (!url) return 'profiles';
-    const parts = url.split('/');
-    return parts[parts.length - 2];
+    try {
+      const parts = url.split('/');
+      // Trouver l'index de "uploads" et prendre le dossier suivant
+      const uploadsIndex = parts.findIndex((part) => part === 'uploads');
+      if (uploadsIndex !== -1 && uploadsIndex + 1 < parts.length) {
+        return parts[uploadsIndex + 1];
+      }
+      return 'profiles';
+    } catch (error) {
+      console.error('Error extracting folder from URL:', error);
+      return 'profiles';
+    }
   }
 
   /**
@@ -58,10 +68,12 @@ export class UploadService {
    * Delete multiple files
    */
   async deleteMultipleFiles(fileUrls: string[]): Promise<void> {
-    if (!fileUrls || fileUrls.length === 0) return;
+    if (!fileUrls || fileUrls.length === 0) {
+      return;
+    }
 
     const deletePromises = fileUrls.map((url) => this.deleteFile(url));
-    await Promise.all(deletePromises);
+    await Promise.allSettled(deletePromises); // Utiliser allSettled pour ne pas échouer si un fichier manque
   }
 
   /**

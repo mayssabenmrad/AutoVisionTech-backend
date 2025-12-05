@@ -134,17 +134,23 @@ export class UserController {
     return this.userService.deleteProfileImage(user.id);
   }
 
-  //Activate /users/activate/userId
-  @Patch('/activate/:id')
+  // PATCH /users/isActive/:id → activate or deactivate a user (admin only)
+  @Patch('/isActive/:id')
   @RequirePermissions(Permission.ADMIN_USER_ACTIVATE)
-  async activateUser(@Param('id') id: string) {
-    return this.userService.activateUser(id);
+  async updateActivateUser(
+    @Param('id') id: string,
+    @Body('isActive') isActive: boolean,
+  ) {
+    return this.userService.updateActivateUser(id, isActive);
   }
 
-  //Deactivate /users/deactivate/userId
-  @Patch('/deactivate/:id')
-  @RequirePermissions(Permission.ADMIN_USER_DEACTIVATE)
-  async deactivateUser(@Param('id') id: string) {
-    return this.userService.deactivateUser(id);
+  // PATCH /users/role/:id → update a user's role (admin only)
+  @Patch('/role/:id')
+  @RequirePermissions(Permission.UPDATE_USER_ROLE)
+  async updateUserRole(
+    @Param('id') id: string,
+    @Body('role') role: 'admin' | 'agent',
+  ) {
+    return this.userService.updateUserRole(id, role);
   }
 }
