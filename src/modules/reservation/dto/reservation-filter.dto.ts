@@ -9,14 +9,6 @@ import {
 export class ReservationFilterDto {
   @IsOptional()
   @IsString()
-  clientName?: string;
-
-  @IsOptional()
-  @IsString()
-  clientEmail?: string;
-
-  @IsOptional()
-  @IsString()
   clientPhone?: string;
 
   @IsOptional()

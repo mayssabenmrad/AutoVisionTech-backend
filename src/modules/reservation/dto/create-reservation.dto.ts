@@ -4,7 +4,6 @@ import {
   IsString,
   IsEmail,
   IsPhoneNumber,
-  IsUUID,
   IsDateString,
 } from 'class-validator';
 
@@ -31,10 +30,6 @@ export class CreateReservationDto {
   visitTime: string;
 
   @IsNotEmpty()
-  @IsIn(['pending', 'confirmed', 'cancelled', 'completed'])
+  @IsIn(['pending', 'confirmed', 'cancelled'])
   status: string;
-
-  @IsNotEmpty()
-  @IsUUID()
-  carId: string;
 }

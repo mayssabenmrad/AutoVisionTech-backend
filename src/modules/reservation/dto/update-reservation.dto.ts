@@ -28,6 +28,6 @@ export class UpdateReservationDto {
   visitTime?: string;
 
   @IsOptional()
-  @IsIn(['pending', 'confirmed', 'cancelled', 'completed'])
+  @IsIn(['pending', 'confirmed', 'cancelled'])
   status?: string;
 }
