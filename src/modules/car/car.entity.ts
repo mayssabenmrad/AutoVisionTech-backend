@@ -49,6 +49,9 @@ export class CarEntity {
   @Column({ type: 'text', array: true, nullable: true, default: [] })
   images: string[];
 
+  @Column({ type: 'text', array: true, nullable: true, default: [] })
+  features: string[];
+
   @ManyToOne(() => User, {
     eager: false,
     onDelete: 'CASCADE',

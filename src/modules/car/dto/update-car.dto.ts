@@ -48,6 +48,10 @@ export class UpdateCarDto {
 
   @IsOptional()
   @IsArray()
+  features?: string[];
+
+  @IsOptional()
+  @IsArray()
   @IsUrl({}, { each: true })
   imagesToKeep?: string[];
 }

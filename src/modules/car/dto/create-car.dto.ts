@@ -49,6 +49,10 @@ export class CreateCarDto {
 
   @IsOptional()
   @IsArray()
+  features?: string[];
+
+  @IsOptional()
+  @IsArray()
   @IsUrl({}, { each: true })
   images?: string[];
 }
