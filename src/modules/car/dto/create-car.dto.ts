@@ -38,8 +38,8 @@ export class CreateCarDto {
   price: number;
 
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
+  @IsInt()
+  @Min(0, { message: 'Kilometer age must be a positive number' })
   kilometerAge: number;
 
   @IsNotEmpty()
