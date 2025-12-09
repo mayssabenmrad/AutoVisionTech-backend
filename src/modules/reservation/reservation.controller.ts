@@ -38,7 +38,6 @@ export class ReservationController {
 
   // GET /reservations : find all with filters and pagination
   @Get()
-  @UseGuards(PermissionsGuard)
   @RequirePermissions(Permission.MANAGE_RESERVATIONS)
   findAll(
     @Query('page') page = 1,
@@ -51,7 +50,6 @@ export class ReservationController {
 
   // GET /reservations/:id : retrieve a reservation by ID
   @Get(':id')
-  @UseGuards(PermissionsGuard)
   @RequirePermissions(Permission.MANAGE_RESERVATIONS)
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.reservationService.findOne(id);
@@ -59,7 +57,6 @@ export class ReservationController {
 
   // PATCH /reservations/:id : update an existing reservation
   @Patch(':id')
-  @UseGuards(PermissionsGuard)
   @RequirePermissions(Permission.MANAGE_RESERVATIONS)
   async update(
     @Param('id') id: string,
@@ -73,7 +70,6 @@ export class ReservationController {
 
   // DELETE /reservations/:id : delete a reservation
   @Delete(':id')
-  @UseGuards(PermissionsGuard)
   @RequirePermissions(Permission.MANAGE_RESERVATIONS)
   remove(@Param('id') id: string) {
     return this.reservationService.deleteReservation(id);

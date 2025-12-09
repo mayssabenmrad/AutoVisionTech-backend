@@ -28,5 +28,5 @@ export class CreateUserDto {
   role: 'agent' | 'admin' = 'agent';
 
   @IsOptional()
-  isActive: boolean = false;
+  isActive?: boolean;
 }
