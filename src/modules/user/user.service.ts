@@ -190,7 +190,8 @@ export class UserService {
     if (!createdUser)
       throw new BadRequestException('User not found after creation');
 
-    createdUser.role = 'admin';
+    createdUser.role = userData.role;
+    createdUser.isActive = userData.isActive ?? true;
     await this.userRepository.save(createdUser);
 
     return createdUser;
